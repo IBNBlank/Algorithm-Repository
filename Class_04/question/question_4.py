@@ -2,7 +2,7 @@
 # @Author: IBNBlank
 # @Date:   2018-08-26 19:26:49
 # @Last Modified by:   IBNBlank
-# @Last Modified time: 2018-09-09 07:25:20
+# @Last Modified time: 2018-09-22 19:54:04
 
 # 描述：
 # 勇士小明在经历九九八十一难后终于来到最后的魔城，准备找到大魔王决一死战。
@@ -46,9 +46,9 @@ def get_ways(x, y):
 	if x == 0 and y == 0:
 		return 1
 	else:
-		if x>0:
+		if x > 0:
 			answer += get_ways(x-1, y)
-		if y>0:
+		if y > 0:
 			answer += get_ways(x, y-1)
 		return answer
 
