@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # @Author: IBNBlank
 # @Date:   2018-09-09 07:29:16
-# @Last Modified by:   IBNBlank
-# @Last Modified time: 2018-09-22 20:41:27
+# @Last Modified by:   Administrator
+# @Last Modified time: 2018-10-01 23:38:03
 
 # 描述
 # 如果A，B是C的父母亲，则A，B是C的parent，C是A，B的child，
@@ -34,6 +34,10 @@
 # great-grandchild
 # great-grandparent
 
+########################
+### 解决不了多父母情况 ###
+########################
+
 ASCII_A = ord("A")
 answers = []
 
@@ -45,12 +49,14 @@ class Child(object):
 def relationship_add(child_list, s):
 	global ASCII_A
 
-	child_no = ord(s[0])-ASCII_A
-	parent_1_no = ord(s[1])-ASCII_A
-	parent_2_no = ord(s[2])-ASCII_A
+	child_no = ord(s[0]) - ASCII_A
+	parent_1_no = ord(s[1]) - ASCII_A
+	parent_2_no = ord(s[2]) - ASCII_A
 
 	if child_no == parent_1_no or child_no == parent_2_no:
 		return
+	elif parent_1_no == parent_2_no:
+		parent_2_no = ord("-") - ASCII_A
 
 	if parent_1_no >= 0:
 		child_list[child_no].parent_1 = child_list[parent_1_no]
@@ -68,14 +74,14 @@ def relationship_find(child_list, s):
 	if child_1 == child_2:
 		answers.append("-")
 	else:
-		code = parent_find(child_1, child_2)
+		code = parent_find(child_1, child_2, 0)
 		if code > 0:
 			if code == 1:
 				answers.append("child")
 			else:
 				answers.append("great-"*(code-2) + "grandchild")
 			return
-		code = parent_find(child_2, child_1)
+		code = parent_find(child_2, child_1, 0)
 		if code > 0:
 			if code == 1:
 				answers.append("parent")
@@ -84,19 +90,21 @@ def relationship_find(child_list, s):
 		else:
 			answers.append("-")
 
-def parent_find(child, parent):
-	if child.parent_1 == None and child.parent_2 == None:
+def parent_find(child, parent, count):
+	if count > 30 or (child.parent_1 == None and child.parent_2 == None):
 		return -100
 	elif child.parent_1 == parent or child.parent_2 == parent:
 		return 1
 	else:
 		if child.parent_1 != None:
-			code = 1 + parent_find(child.parent_1, parent)
+			code = 1 + parent_find(child.parent_1, parent, count+1)
 			if code > 0:
 				return code
 		if child.parent_2 != None:
-			code = 1 + parent_find(child.parent_2, parent)
+			code = 1 + parent_find(child.parent_2, parent, count+1)
 			return code
+		else:
+			return -100
 
 if __name__ == '__main__':
 	child_list = []
