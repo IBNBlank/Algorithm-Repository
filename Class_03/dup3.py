@@ -2,7 +2,7 @@
 # @Author: IBNBlank
 # @Date:   2018-08-26 19:26:49
 # @Last Modified by:   IBNBlank
-# @Last Modified time: 2018-08-26 20:32:51
+# @Last Modified time: 2018-11-06 20:03:12
 
 ####################
 ##### pythonic #####
@@ -11,7 +11,9 @@
 import time
 
 def dup3(A):
-	return True if len(set(A)) == len(set(A)) else False
+	"""Assuming A is a sorted list.
+		Return true if A has duplicated"""
+	return True if len(A) == len(set(A)) else False
 
 if __name__ == '__main__':
 	start = time.time()

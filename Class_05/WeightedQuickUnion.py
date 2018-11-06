@@ -2,12 +2,12 @@
 # @Author: IBNBlank
 # @Date:   2018-09-09 19:01:01
 # @Last Modified by:   IBNBlank
-# @Last Modified time: 2018-09-09 19:27:43
+# @Last Modified time: 2018-10-14 20:32:49
 
 class WeightedQuickUnionDS(object):
 	def __init__(self, N):
 		self.__root_id = list(range(N))
-		self.__weight = [1]*N
+		self.__weight = [1] * N
 
 	def is_connected(self, p, q):
 		return self.__root(p) == self.__root(q)
